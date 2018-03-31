@@ -8,10 +8,13 @@ import com.springMVC.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -24,6 +27,16 @@ public class UserController {
     @RequestMapping("/test")
     public String xxx(){
         return "index";
+    }
+
+    @RequestMapping( method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> selectAllUser(){
+        List<User> users = new ArrayList<>();
+
+        users = this.userService.selectAllUsers();
+
+        return  users;
     }
 
     @RequestMapping("/showUser")

@@ -6,5 +6,15 @@
         select * from user where user_name = #{user_name}
     </select>
 
+    <select id="selectAllUser" resultMap="userList">
+        select * from user
+    </select>
 
+    <resultMap id="userList" type="com.springMVC.pojo.User">
+        <result property="user_ID_card" column="user_ID_card" />
+        <result property="user_balance" column="user_balance" />
+        <result property="user_name" column="user_name" />
+        <result property="user_password" column="user_password" />
+        <result property="user_phone" column="user_phone" />
+    </resultMap>
 </mapper>
