@@ -10,6 +10,12 @@
         select * from user
     </select>
 
+
+    <select id="selectUserGasAddressInfoByUserCardNumber" resultMap="gasAddressInfo">
+        select u.user_ID_card,u.user_balance,u.user_name,u.user_password,u.user_phone,g.user_gas_card_number,g.user_address,g.user_gas_burner_brand,g.user_gas_burner_type,g.postcode from user u join Gas_address g on u.user_ID_card=g.user_ID_card   where u.user_ID_card=#{user_ID_card}
+    </select>
+
+
     <resultMap id="userList" type="com.springMVC.pojo.User">
         <result property="user_ID_card" column="user_ID_card" />
         <result property="user_balance" column="user_balance" />
@@ -19,6 +25,11 @@
     </resultMap>
 
     <resultMap id="gasAddressInfo" type="com.springMVC.pojo.GasAddressInfo">
-
+        <result property="user_ID_card" column="user_ID_card" />
+        <result property="user_gas_card_number" column="user_gas_card_number" />
+        <result property="user_address" column="user_address" />
+        <result property="user_gas_burner_brand" column="user_gas_burner_brand" />
+        <result property="user_gas_burner_type" column="user_gas_burner_type" />
+        <result property="postcode" column="postcode" />
     </resultMap>
 </mapper>

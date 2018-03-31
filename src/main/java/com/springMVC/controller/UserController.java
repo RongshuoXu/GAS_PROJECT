@@ -2,12 +2,13 @@ package com.springMVC.controller;
 import javax.servlet.http.HttpServletRequest;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springMVC.pojo.GasAddressInfo;
 import com.springMVC.pojo.User;
 import com.springMVC.service.UserService;
+import com.sun.istack.internal.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,11 +17,13 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+    private static final Logger LOG = Logger.getLogger(UserController.class);
     @Resource
     private UserService userService;
 
@@ -40,10 +43,15 @@ public class UserController {
         return  users;
     }
 
-    @RequestMapping(value="/gas-adress/{user-card}" , method = RequestMethod.GET)
+    @RequestMapping(value="/gas-address/{user-card}" , method = RequestMethod.GET)
     @ResponseBody
-    public List<GasAddressInfo> selectGasAdressInfoByUserCardNumber(){
+    public List<GasAddressInfo> selectGasAdressInfoByUserCardNumber(@PathVariable("user-card") final String user_card){
         List<GasAddressInfo> gasAddressInfos = new ArrayList<>();
+
+
+        System.out.println("USER_CARD IS " + user_card);
+
+        gasAddressInfos = this.userService.selectUserGasAddressInfoByUserCard(user_card);
 
         return gasAddressInfos == null? null : gasAddressInfos;
     }
