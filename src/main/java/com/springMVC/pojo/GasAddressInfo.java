@@ -22,30 +22,6 @@ public class GasAddressInfo implements Serializable {
         this.postcode = postcode;
     }
 
-    public String getUser_ID_card() {
-        return user_ID_card;
-    }
-
-    public String getUser_gas_card_number() {
-        return user_gas_card_number;
-    }
-
-    public String getUser_address() {
-        return user_address;
-    }
-
-    public String getUser_gas_burner_brand() {
-        return user_gas_burner_brand;
-    }
-
-    public String getUser_gas_burner_type() {
-        return user_gas_burner_type;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
     public void setUser_ID_card(String user_ID_card) {
         this.user_ID_card = user_ID_card;
     }
@@ -68,6 +44,30 @@ public class GasAddressInfo implements Serializable {
 
     public void setPostcode(String postcode) {
         this.postcode = postcode;
+    }
+
+    public String getUser_ID_card() {
+        return user_ID_card;
+    }
+
+    public String getUser_gas_card_number() {
+        return user_gas_card_number;
+    }
+
+    public String getUser_address() {
+        return user_address;
+    }
+
+    public String getUser_gas_burner_brand() {
+        return user_gas_burner_brand;
+    }
+
+    public String getUser_gas_burner_type() {
+        return user_gas_burner_type;
+    }
+
+    public String getPostcode() {
+        return postcode;
     }
 }
 

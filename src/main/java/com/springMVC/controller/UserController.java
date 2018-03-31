@@ -3,6 +3,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springMVC.pojo.GasAddressInfo;
 import com.springMVC.pojo.User;
 import com.springMVC.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,14 @@ public class UserController {
         users = this.userService.selectAllUsers();
 
         return  users;
+    }
+
+    @RequestMapping(value="/gas-adress/{user-card}" , method = RequestMethod.GET)
+    @ResponseBody
+    public List<GasAddressInfo> selectGasAdressInfoByUserCardNumber(){
+        List<GasAddressInfo> gasAddressInfos = new ArrayList<>();
+
+        return gasAddressInfos == null? null : gasAddressInfos;
     }
 
     @RequestMapping("/showUser")
