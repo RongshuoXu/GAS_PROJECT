@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试导出</title>
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+</head>
+<body>
+<table>
+    <tr>
+        <th>姓名</th>
+        <th>班级</th>
+        <th>学号</th>
+    </tr>
+    <tr>
+        <td>Alice</td>
+        <td>David</td>
+        <td>John</td>
+    </tr>
+    <tr>
+        <td>1-1</td>
+        <td>1-1</td>
+        <td>1-2</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+    </tr>
+</table>
+<button onclick="exportExcel()">导出</button>
+<script>
+    function exportExcel(){
+        var cod = $("td,td").text();
+        window.location.href = "/exportExcel";
+        console.log(cod)
+    }
+</script>
+</body>
+</html>

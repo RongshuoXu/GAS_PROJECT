@@ -1,4 +1,3 @@
-Sql 
 
 Drop database if exists GAS;
 

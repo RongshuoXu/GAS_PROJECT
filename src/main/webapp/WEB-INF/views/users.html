@@ -53,6 +53,7 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
+
             $.jgrid.defaults.styleUI = 'Bootstrap';
             // Examle data for jqGrid
             var mydata = [
@@ -296,64 +297,85 @@
 
             // Configuration for jqGrid Example 2
             $("#table_list_2").jqGrid({
-                data: mydata,
-                datatype: "local",
+                url: "/user",
+                datatype: "json",
                 height: 450,
                 autowidth: true,
                 shrinkToFit: true,
                 rowNum: 20,
                 rowList: [10, 20, 30],
-                colNames: ['用户姓名','联系电话','燃气帐号', '用气地址', '燃气灶品牌', '燃气灶型号', '房屋关系'],
+                colNames: ['用户姓名','身份证号','联系电话'],
                 colModel: [{
-                        name: 'id',
-                        index: 'id',
-                        align: "center",
-                        sorttype: "int",
-                        search: true
-                    },{
-                        name: 'invdate',
-                        index: 'invdate',
-                        align: "center",
-                        sorttype: "date",
-                        formatter: "date"
-                    },{
-                        name: 'name',
-                        index: 'name',
-                        align: "center",
-                        editable: true,
-                    },{
-                        name: 'amount',
-                        index: 'amount',
-                        align: "center",
-                        sorttype: "float",
-                        formatter: "number"
-                    },{
-                        name: 'tax',
-                        index: 'tax',
-                        align: "right",
-                        align: "center",
-                        sorttype: "float"
-                    },{
-                        name: 'total',
-                        index: 'total',
-                        align: "center",
-                        sorttype: "float"
-                    },{
-                        name: 'note',
-                        index: 'note',
-                        align: "center",
-                        sortable: false
-                    }
-                ],
+                                name: 'user_name',
+                                index: 'user_name',
+                                align: "center",
+                            },{
+                                name: 'user_ID_card',
+                                index: 'user_ID_card',
+                                key: true,
+                                align: "center",
+                            },{
+                                name: 'user_phone',
+                                index: 'user_phone',
+                                align: "center",
+                            }],
                 pager: "#pager_list_2",
                 viewrecords: true,
                 addtext: 'Add',
                 edittext: 'Edit',
                 hidegrid: false,
                 subGrid : true,
-                subGridModel : [{
-                    name : ['invdate','invdate','invdate']
-                } ]
+                subGridRowExpanded: function(subgrid_id, row_id) {  //  子表格容器的id和需要展开子表格的行id，将传入此事件函数
+                    var subgrid_table_id = subgrid_id + "_t";   //  根据subgrid_id定义对应的子表格的table的id
+                    var subgrid_pager_id = subgrid_id + "_pgr"  //  根据subgrid_id定义对应的子表格的pager的id
+                    console.log("subgrid_table_id:"+subgrid_table_id);
+                    console.log("subgrid_pager_id:"+subgrid_pager_id);
+                    //  动态添加子报表的table和pager
+                    $("#" + subgrid_id).html("<table id='" + subgrid_table_id + "' class='scroll'></table><div id='" + subgrid_pager_id + "' class='scroll'></div>");
+                    //  创建jqGrid对象
+                    $("#" + subgrid_table_id).jqGrid({
+                        url: "/user/gas-address/" + row_id,  // (7)子表格数据对应的url，注意传入的contact.id参数
+                        datatype: "json",
+                        colNames: ['燃气帐号', '用气地址', '燃气灶品牌', '燃气灶型号'],
+                        colModel: [{
+                                        name: "user_gas_card_number",
+                                        index: "user_gas_card_number",
+                                        key: true
+                                    },{
+                                        name: "user_address",
+                                        index: "user_address"
+                                    },{
+                                        name: "user_gas_burner_brand",
+                                        index: "user_gas_burner_brand"
+                                    },{
+                                        name: "user_gas_burner_type",
+                                        index: "user_gas_burner_type"
+                                    }],
+                        pager: subgrid_pager_id,
+                        rowNum: 10,
+                        rowList: [10, 20, 30],
+                        height: "100%",
+                    });
+                    $("#"+subgrid_table_id).jqGrid('navGrid', '#'+subgrid_pager_id, {
+                        edit: true,
+                        add: true,
+                        del: true,
+                        search: true,
+                        addfunc: function() {
+                            jQuery("#"+subgrid_table_id).jqGrid('editGridRow','new',{reloadAfterSubmit:true,closeOnEscape:true});
+                        },
+                        editfunc: function(rowid,properties ) {
+                            jQuery("#"+subgrid_table_id).jqGrid('editGridRow',rowid,properties);
+                        },
+                        delfunc: function(rowid) {
+                            alert("delete row:"+rowid);
+                            $("#"+subgrid_table_id).jqGrid().delRowData(rowid);
+                        },
+                    }, {
+                        height: 200,
+                        reloadAfterSubmit: true
+                    });
+                }
             });
 
             // Setup buttons
@@ -377,6 +399,8 @@
                 reloadAfterSubmit: true
             });
 
+            //  表头居中
+            $("th.ui-th-column.ui-th-ltr").css("text-align","center");
             // Add responsive to jqGrid
             $(window).bind('resize', function () {
                 var width = $('.jqGrid_wrapper').width();
@@ -388,5 +412,4 @@
 
 
 </body>
-
 </html>

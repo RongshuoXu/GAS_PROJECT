@@ -1,1 +1,1 @@
-<jsp:forward page="/WEB-INF/views/index.html"/>
+<jsp:forward page="/WEB-INF/views/exportExcel.html"/>
