@@ -6,6 +6,7 @@ import com.springMVC.pojo.User;
 import com.springMVC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,6 +31,26 @@ public class UserServiceImpl implements UserService {
     public List<GasAddressInfo> selectUserGasAddressInfoByUserCard(String user_ID_card) {
         return this.userMapper.selectUserGasAddressInfoByUserCardNumber(user_ID_card);
     }
+
+    @Override
+    public String registerUser(User user, GasAddressInfo gasAddressInfo) {
+        return null;
+    }
+
+//    @Transactional("transactionManager")
+//    @Override
+//    public String registerUser(User user, GasAddressInfo gasAddressInfo) {
+//
+//        try{
+//            int i = this.userMapper.registerUser(user);
+//            int j = this.userMapper.registerUserGas(gasAddressInfo);
+//        }catch (Exception e) {
+//
+//        }
+//
+//
+//        return null;
+//    }
 
 }
 

@@ -1,8 +1,15 @@
 package com.springMVC.controller;
+//这个是下载下来的maven包里面的类路径
+import org.apache.poi.hssf.model.Sheet;
+import org.apache.poi.hssf.record.formula.functions.Cell;
+import org.apache.poi.hssf.record.formula.functions.Row;
+//这个是我根据idea提示alt+回车修改的类路径
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+//这个是你原来本地包的类路径
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,11 +39,11 @@ public class ExportController {
         map.put("inspectRecordBizList", "一个list");
 
         HSSFWorkbook wb = new HSSFWorkbook();
-        Sheet sheet = wb.createSheet("测试表");
-        Row row = sheet.createRow(0);
+        HSSFSheet sheet = wb.createSheet("测试表");
+        HSSFRow row = sheet.createRow(0);
         int i = 0;
         for(String key : map.keySet()){
-            Cell cell = row.createCell(i);
+            HSSFCell cell = row.createCell((short) i);
             cell.setCellValue((String) map.get(key));
             i++;
         }

@@ -1,4 +1,5 @@
 package com.springMVC.controller;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -8,10 +9,7 @@ import com.springMVC.service.UserService;
 import com.sun.istack.internal.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -28,11 +26,6 @@ public class UserController {
     private UserService userService;
 
 
-    @RequestMapping("/test")
-    public String xxx(){
-        return "index";
-    }
-
     @RequestMapping( method = RequestMethod.GET)
     @ResponseBody
     public List<User> selectAllUser(){
@@ -42,6 +35,31 @@ public class UserController {
 
         return  users;
     }
+
+
+
+//    @RequestMapping("/register")
+//    @ResponseBody
+//    public String registerUser(@RequestParam("user_ID_card")String user_ID_card,
+//                               @RequestParam("user_password")String user_password,
+//                               @RequestParam("user_name")String user_name,
+//                               @RequestParam("user_gas_card_number")String user_gas_card_number){
+//
+//        User user = new User();
+//        user.setUser_ID_card(user_ID_card);
+//        user.setUser_name(user_name);
+//        user.setUser_password(user_password);
+//        user.setUser_balance(0.00);
+//
+//        GasAddressInfo gasAddressInfo = new GasAddressInfo();
+//        gasAddressInfo.setUser_ID_card(user_ID_card);
+//        gasAddressInfo.setUser_gas_card_number(user_gas_card_number);
+//
+//        String result = this.userService.registerUser(user,gasAddressInfo);
+//
+//        return result;
+//    }
+
 
     @RequestMapping(value="/gas-address/{user-card}" , method = RequestMethod.GET)
     @ResponseBody
@@ -53,20 +71,7 @@ public class UserController {
 
         gasAddressInfos = this.userService.selectUserGasAddressInfoByUserCard(user_card);
 
-        return gasAddressInfos == null? null : gasAddressInfos;
+        return gasAddressInfos == null ? null : gasAddressInfos;
     }
 
-    @RequestMapping("/showUser")
-    public String selectUser(HttpServletRequest request, Model model) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        String user_name = request.getParameter("name");
-
-        System.out.println(user_name+"用户名参数是");
-
-        User user = this.userService.selectUser(user_name);
-        model.addAttribute("user",user);
-
-        System.out.println(user);
-        return "index";
-    }
 }
