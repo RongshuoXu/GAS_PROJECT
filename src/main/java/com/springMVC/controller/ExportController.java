@@ -1,4 +1,6 @@
 package com.springMVC.controller;
+
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -33,7 +35,7 @@ public class ExportController {
 
         HSSFWorkbook wb = new HSSFWorkbook();
         Sheet sheet = wb.createSheet("测试表");
-        Row row = sheet.createRow(0);
+        Row row = (Row) sheet.createRow(0);
         int i = 0;
         for(String key : map.keySet()){
             Cell cell = row.createCell(i);
