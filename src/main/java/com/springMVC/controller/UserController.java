@@ -1,9 +1,9 @@
 package com.springMVC.controller;
 import javax.servlet.http.HttpServletRequest;
-
-
 import com.springMVC.pojo.GasAddressInfo;
+import com.springMVC.pojo.TreeInfo;
 import com.springMVC.pojo.User;
+import com.springMVC.service.TreeService;
 import com.springMVC.service.UserService;
 import com.sun.istack.internal.logging.Logger;
 import org.springframework.stereotype.Controller;
@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 @Controller
 @RequestMapping("/user")
@@ -69,4 +68,5 @@ public class UserController {
         System.out.println(user);
         return "index";
     }
+
 }

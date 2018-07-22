@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springMVC.mapper.TreeMapper">
+    <select id="selectTree" resultMap="treeList">
+        select * from ck_product_catgory
+    </select>
+
+    <resultMap id="treeList" type="com.springMVC.pojo.TreeInfo">
+        <result property="catgoryId" column="catgoryId" />
+        <result property="createTime" column="createTime" />
+        <result property="province" column="province" />
+        <result property="provinceId" column="provinceId" />
+        <result property="cataLevel" column="cataLevel" />
+        <result property="parentId" column="parentId" />
+        <result property="createPerson" column="createPerson" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+</mapper>

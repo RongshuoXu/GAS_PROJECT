@@ -1,6 +1,4 @@
 package com.springMVC.controller;
-
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -8,7 +6,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
@@ -58,8 +55,10 @@ public class ExportController {
             }
 
             response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/vnd.ms-excel;charset=utf-8");// 设置contentType为excel格式
+            response.setContentType("application/octet-stream; charset=utf-8");
+//            response.setContentType("application/vnd.ms-excel;charset=utf-8");// 设置contentType为excel格式
             response.setHeader("Content-Disposition", "Attachment;Filename="+ fileName+".xls");
+
             wb.write(fos);
             fos.close();
         } catch (FileNotFoundException e) {
